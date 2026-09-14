@@ -1,17 +1,17 @@
-NOME: Laura
-MENSAGEM: Toda vez que você encostar aqui, vai ter uma coisa nova esperando por você. Essa é a primeira: eu só queria que você soubesse que penso em você em algum momento de quase todo santo dia — às vezes bobagem, às vezes do nada, às vezes bem no meio de alguma coisa importante. Toda semana eu troco essa mensagem, então volta sempre.
+NOME: Laura, meu bem
+MENSAGEM: queria que você soubesse que estou te esperando
 AUDIO: nao
 
 PERGUNTA1: Você pensou em mim hoje?
-OPCOES1: Sim, Não, Talvez
+OPCOES1: Sim, Sim, e sim
 
-PERGUNTA2:
-OPCOES2:
+PERGUNTA2:Quer Casar Comigo ?
+OPCOES2: Sim, Sim, Siiim
 
-PERGUNTA3:
-OPCOES3:
+PERGUNTA3:Hoje ? 
+OPCOES3: Yes, Yes, Yes
 
-PERGUNTA4:
+PERGUNTA4:Você esta com saudades ?
 OPCOES4:
 
 ------------------------------------------------------------
