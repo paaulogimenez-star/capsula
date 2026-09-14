@@ -1,0 +1,13 @@
+# Esse é o ÚNICO arquivo que você mexe, toda semana.
+# Só troca o texto DEPOIS dos dois-pontos (:) em cada linha — não mexe no que vem antes.
+# Linhas que começam com # (como essas aqui) são só comentário, o site ignora.
+# Se quiser quebrar linha dentro da mensagem, digite \n onde quiser o salto.
+#
+# AUDIO: deixe "sim" e suba um arquivo chamado exatamente audio.mp3 (minúsculo) na mesma pasta.
+#        deixe "nao" nas semanas sem áudio.
+# FORM: cole o link do Google Forms da semana (deixe em branco se não tiver perguntas essa semana).
+
+NOME: Laura
+MENSAGEM: Toda vez que você encostar aqui, vai ter uma coisa nova esperando por você. Essa é a primeira: eu só queria que você soubesse que penso em você em algum momento de quase todo santo dia — às vezes bobagem, às vezes do nada, às vezes bem no meio de alguma coisa importante. Toda semana eu troco essa mensagem, então volta sempre.
+AUDIO: nao
+FORM:
