@@ -10,7 +10,7 @@
   // cola a URL dele aqui no lugar do texto entre aspas. Enquanto estiver assim, com
   // "COLE_AQUI...", as perguntas funcionam normalmente na tela, só não salvam em lugar
   // nenhum (então nada quebra se você ainda não configurou isso).
-  var RESPOSTAS_URL = "https://script.google.com/macros/s/AKfycbyifaxrX30thKXoWR7VdQx87nBDrND0vSo-vELmPl9en4GhyUP59CPDzt8peU0BNksJ/exec";
+  var RESPOSTAS_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
 
   function $(sel, root){ return (root||document).querySelector(sel); }
   function el(tag, cls, html){

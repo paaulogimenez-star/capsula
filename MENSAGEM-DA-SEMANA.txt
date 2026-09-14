@@ -1,13 +1,42 @@
 NOME: Laura
-MENSAGEM: Quero você de volta.
+MENSAGEM: Toda vez que você encostar aqui, vai ter uma coisa nova esperando por você. Essa é a primeira: eu só queria que você soubesse que penso em você em algum momento de quase todo santo dia — às vezes bobagem, às vezes do nada, às vezes bem no meio de alguma coisa importante. Toda semana eu troco essa mensagem, então volta sempre.
 AUDIO: nao
-FORM: <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdhc1mnUz4XmWZiJekC3kwjPTYTwuaQj0hR2oaUAeYZCKGK5g/viewform?embedded=true" width="640" height="869" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+
+PERGUNTA1: Você pensou em mim hoje?
+OPCOES1: Sim, Não, Talvez
+
+PERGUNTA2:
+OPCOES2:
+
+PERGUNTA3:
+OPCOES3:
+
+PERGUNTA4:
+OPCOES4:
 
 ------------------------------------------------------------
 Só mexe ACIMA desta linha. Tudo daqui pra baixo é só instrução — o site ignora.
 ------------------------------------------------------------
 # Só troca o texto DEPOIS dos dois-pontos (:) em cada linha, lá em cima.
 # Se quiser quebrar linha dentro da mensagem, digite \n onde quiser o salto.
+#
 # AUDIO: deixe "sim" e suba um arquivo chamado exatamente audio.mp3 (minúsculo) na mesma pasta.
 #        deixe "nao" nas semanas sem áudio.
-# FORM: cole o link do Google Forms da semana. Deixe em branco nas semanas sem perguntas.
+#
+# PERGUNTA1, PERGUNTA2, PERGUNTA3, PERGUNTA4: até 4 perguntas por semana. Deixa em
+# branco a(s) que não for usar. Não precisa preencher em ordem nem usar todas.
+#
+# OPCOES1, OPCOES2, OPCOES3, OPCOES4: as opções daquela pergunta, separadas por vírgula
+# (ex: Sim, Não, Talvez). Ela vai ver botões e ao tocar já passa pra próxima pergunta.
+#   - Se deixar OPCOES em branco, aquela pergunta vira resposta livre (ela escreve o
+#     texto que quiser).
+#
+# Exemplo de uma semana com 2 perguntas, uma de múltipla escolha e uma de texto livre:
+#   PERGUNTA1: Você pensou em mim hoje?
+#   OPCOES1: Sim, Não, Talvez
+#   PERGUNTA2: Conta uma coisa boa que aconteceu essa semana
+#   OPCOES2:
+#
+# As respostas dela ficam guardadas numa Planilha Google só sua (veja "PASSO 3" no
+# LEIA-ME.txt) — tudo acontece dentro da própria cápsula, sem sair do site e sem ela
+# precisar fazer login em nada.

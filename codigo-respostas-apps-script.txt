@@ -1,0 +1,29 @@
+CÓDIGO DO "APPS SCRIPT" — cola isso lá, seguindo o PASSO 3 do LEIA-ME.txt.
+Isso é uma configuração de UMA VEZ SÓ. Depois de pronto, nunca mais precisa mexer aqui.
+======================================================================================
+
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Respostas")
+      || SpreadsheetApp.getActiveSpreadsheet().insertSheet("Respostas");
+
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["Quando", "Pergunta", "Resposta"]);
+  }
+
+  var dados = {};
+  try {
+    dados = JSON.parse(e.postData.contents);
+  } catch (err) {
+    dados = {};
+  }
+
+  sheet.appendRow([new Date(), dados.pergunta || "", dados.resposta || ""]);
+
+  return ContentService
+      .createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doOptions(e) {
+  return ContentService.createTextOutput("");
+}
