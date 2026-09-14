@@ -18,6 +18,19 @@
     var m = Math.floor(sec/60), s = Math.floor(sec%60);
     return m + ":" + (s<10?"0":"") + s;
   }
+  // se for um link direto do Forms (docs.google.com/forms/...), força o modo
+  // "embedded" (sem cabeçalho/rodapé do Google) pra ficar mais integrado à página.
+  // um link curto (forms.gle/...) é usado como está.
+  function formEmbedUrl(url){
+    try{
+      var u = new URL(url);
+      if (/(^|\.)docs\.google\.com$/.test(u.hostname) && u.pathname.indexOf("/forms/") !== -1){
+        u.searchParams.set("embedded", "true");
+        return u.toString();
+      }
+    }catch(e){}
+    return url;
+  }
 
   // formato do MENSAGEM-DA-SEMANA.txt: linhas "CHAVE: valor". linhas em branco ou
   // começando com # são ignoradas. só a primeira ":" da linha conta como separador,
@@ -163,16 +176,20 @@
     if (state.hasAudio) c.appendChild(buildAudioCard());
 
     if (state.formUrl){
-      var btn = el("button","btn btn-primary btn-block","responder as perguntas →");
-      var note = el("div","","abre numa aba nova — pode fechar quando terminar de responder.");
-      note.style.cssText = "text-align:center;font-size:12px;color:var(--paper-dimmer);";
-      note.hidden = true;
-      btn.addEventListener("click", function(){
-        window.open(state.formUrl, "_blank", "noopener");
-        note.hidden = false;
-      });
-      c.appendChild(btn);
-      c.appendChild(note);
+      var formWrap = el("div","form-embed");
+      var iframe = document.createElement("iframe");
+      iframe.src = formEmbedUrl(state.formUrl);
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "no-referrer-when-downgrade";
+      iframe.setAttribute("title", "Perguntas da semana");
+      formWrap.appendChild(iframe);
+      c.appendChild(formWrap);
+
+      var fallback = el("a","form-fallback","não carregou? abre em outra aba →");
+      fallback.href = state.formUrl;
+      fallback.target = "_blank";
+      fallback.rel = "noopener";
+      c.appendChild(fallback);
     }
 
     app.appendChild(s);
