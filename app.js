@@ -1,7 +1,16 @@
-// motor da cápsula — parte do "motor" do site, não precisa mexer aqui nunca.
-// quem edita o conteúdo é o arquivo MENSAGEM-DA-SEMANA.txt (e, se quiser áudio, um arquivo audio.mp3).
+// motor da cápsula — parte do "motor" do site, não precisa mexer aqui nunca
+// (a ÚNICA exceção é a linha RESPOSTAS_URL logo abaixo, que se configura uma vez só).
+// quem edita o conteúdo do dia a dia é o arquivo MENSAGEM-DA-SEMANA.txt
+// (e, se quiser áudio, um arquivo audio.mp3).
 (function(){
   "use strict";
+
+  // ATENÇÃO — configuração de UMA VEZ SÓ (não é o arquivo que você edita toda semana):
+  // depois de criar o "Apps Script" que guarda as respostas dela (passo do LEIA-ME.txt),
+  // cola a URL dele aqui no lugar do texto entre aspas. Enquanto estiver assim, com
+  // "COLE_AQUI...", as perguntas funcionam normalmente na tela, só não salvam em lugar
+  // nenhum (então nada quebra se você ainda não configurou isso).
+  var RESPOSTAS_URL = "https://script.google.com/macros/s/AKfycbyifaxrX30thKXoWR7VdQx87nBDrND0vSo-vELmPl9en4GhyUP59CPDzt8peU0BNksJ/exec";
 
   function $(sel, root){ return (root||document).querySelector(sel); }
   function el(tag, cls, html){
@@ -18,25 +27,16 @@
     var m = Math.floor(sec/60), s = Math.floor(sec%60);
     return m + ":" + (s<10?"0":"") + s;
   }
-  // se for um link direto do Forms (docs.google.com/forms/...), força o modo
-  // "embedded" (sem cabeçalho/rodapé do Google) pra ficar mais integrado à página.
-  // um link curto (forms.gle/...) é usado como está.
-  function formEmbedUrl(url){
-    try{
-      var u = new URL(url);
-      if (/(^|\.)docs\.google\.com$/.test(u.hostname) && u.pathname.indexOf("/forms/") !== -1){
-        u.searchParams.set("embedded", "true");
-        return u.toString();
-      }
-    }catch(e){}
-    return url;
-  }
 
   // formato do MENSAGEM-DA-SEMANA.txt: linhas "CHAVE: valor". linhas em branco ou
   // começando com # são ignoradas. só a primeira ":" da linha conta como separador,
-  // então o texto da mensagem pode ter ":" à vontade.
+  // então o texto da mensagem (ou de uma pergunta) pode ter ":" à vontade.
+  var CHAVES = ["NOME","MENSAGEM","AUDIO",
+    "PERGUNTA1","OPCOES1","PERGUNTA2","OPCOES2","PERGUNTA3","OPCOES3","PERGUNTA4","OPCOES4"];
+
   function parseContent(text){
-    var data = { NOME:"", MENSAGEM:"", AUDIO:"nao", FORM:"" };
+    var data = { NOME:"", MENSAGEM:"", AUDIO:"nao" };
+    CHAVES.forEach(function(k){ if (!(k in data)) data[k] = ""; });
     String(text||"").split(/\r?\n/).forEach(function(line){
       var t = line.trim();
       if (!t || t.charAt(0) === "#") return;
@@ -44,13 +44,45 @@
       if (idx === -1) return;
       var key = t.slice(0, idx).trim().toUpperCase();
       var val = t.slice(idx + 1).trim();
-      if (key === "NOME" || key === "MENSAGEM" || key === "AUDIO" || key === "FORM") data[key] = val;
+      if (CHAVES.indexOf(key) !== -1) data[key] = val;
     });
     data.MENSAGEM = data.MENSAGEM.replace(/\\n/g, "\n");
     return data;
   }
 
-  var state = { herName:"", message:"Toque para abrir sua mensagem.", hasAudio:false, formUrl:"" };
+  // monta a lista de perguntas da semana a partir de PERGUNTA1..4 / OPCOES1..4.
+  // pergunta em branco = aquele número não é usado nesta semana.
+  // opções em branco = pergunta de resposta livre (texto).
+  function buildQuestions(d){
+    var qs = [];
+    for (var i=1;i<=4;i++){
+      var text = (d["PERGUNTA"+i] || "").trim();
+      if (!text) continue;
+      var optsRaw = (d["OPCOES"+i] || "").trim();
+      var options = null;
+      if (optsRaw){
+        options = optsRaw.split(",").map(function(s){ return s.trim(); }).filter(Boolean);
+        if (!options.length) options = null;
+      }
+      qs.push({ text: text, options: options });
+    }
+    return qs;
+  }
+
+  // envia uma resposta pro "Apps Script" (que guarda numa planilha só sua).
+  // sempre "dispara e esquece": não trava a experiência dela esperando confirmação,
+  // e se RESPOSTAS_URL ainda não foi configurada, simplesmente não faz nada.
+  function sendAnswer(pergunta, resposta){
+    if (!RESPOSTAS_URL || RESPOSTAS_URL.indexOf("COLE_AQUI") !== -1) return;
+    try{
+      fetch(RESPOSTAS_URL, {
+        method: "POST",
+        body: JSON.stringify({ pergunta: pergunta, resposta: resposta })
+      }).catch(function(){});
+    }catch(e){}
+  }
+
+  var state = { herName:"", message:"Toque para abrir sua mensagem.", hasAudio:false, questions:[] };
   var currentScreen = null;
 
   var app = document.getElementById("app");
@@ -175,23 +207,88 @@
 
     if (state.hasAudio) c.appendChild(buildAudioCard());
 
-    if (state.formUrl){
-      var formWrap = el("div","form-embed");
-      var iframe = document.createElement("iframe");
-      iframe.src = formEmbedUrl(state.formUrl);
-      iframe.loading = "lazy";
-      iframe.referrerPolicy = "no-referrer-when-downgrade";
-      iframe.setAttribute("title", "Perguntas da semana");
-      formWrap.appendChild(iframe);
-      c.appendChild(formWrap);
-
-      var fallback = el("a","form-fallback","não carregou? abre em outra aba →");
-      fallback.href = state.formUrl;
-      fallback.target = "_blank";
-      fallback.rel = "noopener";
-      c.appendChild(fallback);
+    if (state.questions && state.questions.length){
+      var askWrap = el("div","ask-prompt");
+      var askText = el("div","ask-text","tenho uma perguntinha pra você essa semana");
+      var askBtn = el("button","btn btn-primary btn-block","responder");
+      askBtn.addEventListener("click", function(){ renderQuestion(0); });
+      askWrap.appendChild(askText);
+      askWrap.appendChild(askBtn);
+      c.appendChild(askWrap);
     }
 
+    app.appendChild(s);
+  }
+
+  function dotsRow(activeIdx){
+    var row = el("div","q-progress");
+    state.questions.forEach(function(_, i){
+      row.appendChild(el("span","q-dot" + (i===activeIdx ? " active":"")));
+    });
+    return row;
+  }
+
+  function renderQuestion(idx){
+    currentScreen = "question";
+    app.innerHTML = "";
+    var built = stage([]);
+    var s = built.stage, c = built.capsule;
+    var q = state.questions[idx];
+    var isLast = idx === state.questions.length - 1;
+
+    var eyebrow = el("div","eyebrow");
+    eyebrow.innerHTML = '<span class="dot"></span>pergunta ' + (idx+1) + ' de ' + state.questions.length;
+    c.appendChild(eyebrow);
+
+    var qText = el("p","msg-text q-text", esc(q.text));
+    c.appendChild(qText);
+
+    if (q.options){
+      var wrap = el("div","q-options");
+      q.options.forEach(function(opt){
+        var b = el("button","opt-btn", esc(opt));
+        b.addEventListener("click", function(){
+          if (wrap.classList.contains("answered")) return;
+          wrap.classList.add("answered");
+          b.classList.add("selected");
+          sendAnswer(q.text, opt);
+          setTimeout(function(){
+            if (isLast) renderThanks(); else renderQuestion(idx+1);
+          }, 380);
+        });
+        wrap.appendChild(b);
+      });
+      c.appendChild(wrap);
+    } else {
+      var ta = document.createElement("textarea");
+      ta.className = "q-textarea";
+      ta.rows = 3;
+      ta.placeholder = "escreve aqui...";
+      c.appendChild(ta);
+      var submitBtn = el("button","btn btn-primary btn-block", isLast ? "Enviar" : "Próxima");
+      submitBtn.addEventListener("click", function(){
+        if (submitBtn.disabled) return;
+        submitBtn.disabled = true;
+        sendAnswer(q.text, ta.value.trim());
+        if (isLast) renderThanks(); else renderQuestion(idx+1);
+      });
+      c.appendChild(submitBtn);
+    }
+
+    if (state.questions.length > 1) c.appendChild(dotsRow(idx));
+    app.appendChild(s);
+  }
+
+  function renderThanks(){
+    currentScreen = "thanks";
+    app.innerHTML = "";
+    var built = stage([]);
+    var s = built.stage, c = built.capsule;
+    c.classList.add("cover-wrap");
+    var eyebrow = el("div","eyebrow"); eyebrow.innerHTML = '<span class="dot"></span>enviado';
+    var title = el("div","cover-title serif","obrigado por responder");
+    var hint = el("div","cover-hint","até a próxima semana");
+    c.appendChild(eyebrow); c.appendChild(title); c.appendChild(hint);
     app.appendChild(s);
   }
 
@@ -267,7 +364,7 @@
       var d = parseContent(text);
       state.herName = d.NOME || "";
       state.message = d.MENSAGEM || "Toque para abrir sua mensagem.";
-      state.formUrl = (d.FORM || "").trim();
+      state.questions = buildQuestions(d);
       var wantsAudio = /^s/i.test((d.AUDIO || "").trim());
       renderCover();
       if (wantsAudio){
