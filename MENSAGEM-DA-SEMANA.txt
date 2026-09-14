@@ -1,13 +1,13 @@
-# Esse é o ÚNICO arquivo que você mexe, toda semana.
-# Só troca o texto DEPOIS dos dois-pontos (:) em cada linha — não mexe no que vem antes.
-# Linhas que começam com # (como essas aqui) são só comentário, o site ignora.
-# Se quiser quebrar linha dentro da mensagem, digite \n onde quiser o salto.
-#
-# AUDIO: deixe "sim" e suba um arquivo chamado exatamente audio.mp3 (minúsculo) na mesma pasta.
-#        deixe "nao" nas semanas sem áudio.
-# FORM: https://forms.gle/jjp8YJMPjT7oENma6
-
 NOME: Laura
 MENSAGEM: Quero você de volta.
 AUDIO: nao
-FORM:
+FORM: https://forms.gle/jjp8YJMPjT7oENma6
+
+------------------------------------------------------------
+Só mexe ACIMA desta linha. Tudo daqui pra baixo é só instrução — o site ignora.
+------------------------------------------------------------
+# Só troca o texto DEPOIS dos dois-pontos (:) em cada linha, lá em cima.
+# Se quiser quebrar linha dentro da mensagem, digite \n onde quiser o salto.
+# AUDIO: deixe "sim" e suba um arquivo chamado exatamente audio.mp3 (minúsculo) na mesma pasta.
+#        deixe "nao" nas semanas sem áudio.
+# FORM: cole o link do Google Forms da semana. Deixe em branco nas semanas sem perguntas.
