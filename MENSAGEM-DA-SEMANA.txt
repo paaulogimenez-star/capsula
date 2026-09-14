@@ -1,6 +1,6 @@
 NOME: Laura, meu bem
 MENSAGEM: queria que você soubesse que estou te esperando
-AUDIO: nao
+AUDIO: sim
 
 PERGUNTA1: Você pensou em mim hoje?
 OPCOES1: Sim, Sim, e sim
