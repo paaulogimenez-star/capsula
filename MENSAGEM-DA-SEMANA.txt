@@ -5,7 +5,7 @@
 #
 # AUDIO: deixe "sim" e suba um arquivo chamado exatamente audio.mp3 (minúsculo) na mesma pasta.
 #        deixe "nao" nas semanas sem áudio.
-# FORM: cole o link do Google Forms da semana (deixe em branco se não tiver perguntas essa semana).
+# FORM: https://forms.gle/jjp8YJMPjT7oENma6
 
 NOME: Laura
 MENSAGEM: Quero você de volta.
