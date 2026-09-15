@@ -1,17 +1,17 @@
-NOME: Laura, meu bem
-MENSAGEM: queria que você soubesse que estou te esperando
-AUDIO: sim
+NOME: Meu bem ❤️
+MENSAGEM: Eu sei que você esta vivendo sua fase, mas saiba que eu vou estar aqui te esperando. 
+AUDIO: nao
 
-PERGUNTA1: Você pensou em mim hoje?
-OPCOES1: Sim, Sim, e sim
+PERGUNTA1: Você gostaria de ter um futuro comigo ?
+OPCOES1: Sim, Não
 
-PERGUNTA2:Quer Casar Comigo ?
-OPCOES2: Sim, Sim, Siiim
+PERGUNTA2: Está sentindo falta de falar comigo ?
+OPCOES2: Sim, Não
 
-PERGUNTA3:Hoje ? 
-OPCOES3: Yes, Yes, Yes
+PERGUNTA3: Você acha que tomou a decisão certa ?
+OPCOES3: Sim, Não
 
-PERGUNTA4:Você esta com saudades ?
+PERGUNTA4: O que eu posso fazer pra trazer você pra mim ?
 OPCOES4:
 
 ------------------------------------------------------------
