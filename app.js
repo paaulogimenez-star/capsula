@@ -118,13 +118,6 @@
     app.appendChild(s);
 
     seal.addEventListener("click", function(){
-      if (state.hasAudio){
-        try{
-          audioEl.currentTime = 0;
-          var p = audioEl.play();
-          if (p && p.catch) p.catch(function(){});
-        }catch(e){}
-      }
       c.classList.add("sealing");
       setTimeout(renderMessage, 220);
     });
@@ -205,8 +198,9 @@
     });
     c.appendChild(p);
 
-    if (state.hasAudio) c.appendChild(buildAudioCard());
-
+    // o áudio (quando tem) fica reservado pra última tela — aqui só decide
+    // qual botão leva pra lá: "responder" (quando tem pergunta) ou "continuar"
+    // (quando não tem pergunta mas tem áudio).
     if (state.questions && state.questions.length){
       var askWrap = el("div","ask-prompt");
       var askText = el("div","ask-text","tenho uma perguntinha pra você essa semana");
@@ -215,6 +209,14 @@
       askWrap.appendChild(askText);
       askWrap.appendChild(askBtn);
       c.appendChild(askWrap);
+    } else if (state.hasAudio){
+      var contWrap = el("div","ask-prompt");
+      var contText = el("div","ask-text","gravei uma coisa pra você essa semana");
+      var contBtn = el("button","btn btn-primary btn-block","ouvir");
+      contBtn.addEventListener("click", function(){ renderThanks(); });
+      contWrap.appendChild(contText);
+      contWrap.appendChild(contBtn);
+      c.appendChild(contWrap);
     }
 
     app.appendChild(s);
@@ -279,16 +281,24 @@
     app.appendChild(s);
   }
 
+  // tela final — sempre a última coisa que ela vê. Se teve pergunta, fecha
+  // agradecendo por ter respondido; se não teve, é só o fechamento da semana.
+  // e é aqui, só aqui, que o áudio (quando tem) aparece.
   function renderThanks(){
     currentScreen = "thanks";
     app.innerHTML = "";
+    var hadQuestions = state.questions && state.questions.length;
     var built = stage([]);
     var s = built.stage, c = built.capsule;
     c.classList.add("cover-wrap");
-    var eyebrow = el("div","eyebrow"); eyebrow.innerHTML = '<span class="dot"></span>enviado';
-    var title = el("div","cover-title serif","obrigado por responder");
-    var hint = el("div","cover-hint","até a próxima semana");
-    c.appendChild(eyebrow); c.appendChild(title); c.appendChild(hint);
+    var eyebrow = el("div","eyebrow");
+    eyebrow.innerHTML = '<span class="dot"></span>' + (hadQuestions ? "enviado" : "pra você");
+    c.appendChild(eyebrow);
+    if (hadQuestions){
+      c.appendChild(el("div","cover-title serif","obrigado por responder"));
+    }
+    if (state.hasAudio) c.appendChild(buildAudioCard());
+    c.appendChild(el("div","cover-hint","até a próxima semana"));
     app.appendChild(s);
   }
 
