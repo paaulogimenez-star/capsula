@@ -1,17 +1,17 @@
-NOME: Meu bem ❤️
-MENSAGEM: Eu sei que você esta vivendo sua fase, mas saiba que eu vou estar aqui te esperando. 
+NOME: Amor ❤️
+MENSAGEM: Que merda em ✌🏻
 AUDIO: nao
 
-PERGUNTA1: Você gostaria de ter um futuro comigo ?
+PERGUNTA1: Queria ter dado pra mim em sp ?
 OPCOES1: Sim, Não
 
-PERGUNTA2: Está sentindo falta de falar comigo ?
+PERGUNTA2: Fala comigo
 OPCOES2: Sim, Não
 
-PERGUNTA3: Você acha que tomou a decisão certa ?
+PERGUNTA3: Quero fazer amor com você, topa ?
 OPCOES3: Sim, Não
 
-PERGUNTA4: O que eu posso fazer pra trazer você pra mim ?
+PERGUNTA4:
 OPCOES4:
 
 ------------------------------------------------------------
