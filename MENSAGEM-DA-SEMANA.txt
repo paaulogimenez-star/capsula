@@ -1,15 +1,15 @@
-NOME: Amor ❤️
-MENSAGEM: Que merda em ✌🏻
+NOME: Ao meu ex amor
+MENSAGEM: Ontem vi alguns posters que você curtiu, isso me chatiou tanto, como uma pessoa que te da tudo, disposto a te fazer feliz e você troca por alguém que nem suas menssagens resposde ? enfim, seja feliz e se cuida.
 AUDIO: nao
 
-PERGUNTA1: Queria ter dado pra mim em sp ?
-OPCOES1: Sim, Não
+PERGUNTA1: 
+OPCOES1: 
 
-PERGUNTA2: Fala comigo
-OPCOES2: Sim, Não
+PERGUNTA2: 
+OPCOES2: 
 
-PERGUNTA3: Quero fazer amor com você, topa ?
-OPCOES3: Sim, Não
+PERGUNTA3: 
+OPCOES3: 
 
 PERGUNTA4:
 OPCOES4:
