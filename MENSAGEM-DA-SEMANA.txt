@@ -1,14 +1,14 @@
-NOME: 
-MENSAGEM: 
+NOME: Laura 🥲
+MENSAGEM: Será que tudo que eu fiquei sabendo de você, é verdade ?
 AUDIO: nao
 
-PERGUNTA1: 
-OPCOES1: 
+PERGUNTA1: Sim, é verdade.
+OPCOES1: Sim, Não, Boa parte
 
-PERGUNTA2: 
-OPCOES2: 
+PERGUNTA2: Você só não estava interessa em mim ? 
+OPCOES2: Sim, Não
 
-PERGUNTA3: 
+PERGUNTA3: Por que não me falou antes ?
 OPCOES3: 
 
 PERGUNTA4:
