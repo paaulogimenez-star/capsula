@@ -1,18 +1,17 @@
-NOME: Teste
-MENSAGEM: teste dois
+NOME: Laura
+MENSAGEM: Realize seus próprios sonhos. Do contrário, você será contratado para realizar os de outras pessoas.
 AUDIO: nao
 
-PERGUNTA1:teste tres
-OPCOES1: Sim, Não, Talvez, Nao quero
+PERGUNTA1: Que dia é hoje ?
+OPCOES1: quarta, Quinta, Sexta, Sabado
+PERGUNTA2: Dia do mês
+OPCOES2:01, 05, 15, 30
 
-PERGUNTA2: Teste quatro
-OPCOES2:Sim, Não
+PERGUNTA3: Qual ano ?
+OPCOES3: 2020, 2023, 2025, 2026
 
-PERGUNTA3: Teste cinco
-OPCOES3: Sim, Não
-
-PERGUNTA4:Teste
-OPCOES4:
+PERGUNTA4: Acha que foi bem ?
+OPCOES4: Sim, Não, Talvez
 
 ------------------------------------------------------------
 Só mexe ACIMA desta linha. Tudo daqui pra baixo é só instrução — o site ignora.
