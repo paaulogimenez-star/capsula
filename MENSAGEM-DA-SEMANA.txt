@@ -11,7 +11,7 @@ PERGUNTA3: Qual ano ?
 OPCOES3: 2020, 2023, 2025, 2026
 
 PERGUNTA4: Acha que foi bem ?
-OPCOES4: Sim, Não, Talvez
+OPCOES4: 
 
 ------------------------------------------------------------
 Só mexe ACIMA desta linha. Tudo daqui pra baixo é só instrução — o site ignora.
